@@ -1,7 +1,15 @@
+<!DOCTYPE html>
 <html>
-
-    <body>
-        hello world
-
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>Elm Workshop</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="dist/app.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      Elm.Main.init({node: document.getElementById("app")});
+    </script>
+  </body>
 </html>
