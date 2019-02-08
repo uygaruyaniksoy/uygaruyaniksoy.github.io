@@ -11,7 +11,9 @@ type alias Flags =
 
 
 type alias Model =
-    {}
+    { educationItems : List EducationItem
+    , selectedEducationItem : Maybe EducationItem
+    }
 
 
 type Msg
@@ -34,7 +36,12 @@ type alias EducationItem =
 
 initialState : Model
 initialState =
-    {}
+    { selectedEducationItem = Nothing
+    , educationItems =
+        [ EducationItem "Middle East Technical University" "Computer Engineering" "2013-2019" "Turkey" [ "did sth" ]
+        , EducationItem "Regensburg University of Applied Science" "Computer Science" "2017-2017" "Germany" [ "did sth" ]
+        ]
+    }
 
 
 
@@ -43,7 +50,12 @@ initialState =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        Noop ->
+            ( model, Cmd.none )
+
+        SelectedEducationItem item ->
+            ( { model | selectedEducationItem = Just item }, Cmd.none )
 
 
 view : Model -> Html Msg
@@ -54,7 +66,7 @@ view model =
         ]
         [ siteHeader
         , bio
-        , education
+        , education model
         , experience
         , projects
         , skills
@@ -103,27 +115,36 @@ bio =
         ]
 
 
-education educationItems =
+education model =
     div
         [ class "section-header"
         , class "col-md-6"
         , class "col-sm-12"
         ]
         [ h1 [] [ text "education" ]
-        , div [] (List.map edicationItem educationItems)
+        , div [] (List.map (educationItem model.selectedEducationItem) model.educationItems)
         ]
 
 
-educationItem item =
+educationItem selectedItem item =
+    let
+        visibility =
+            case selectedItem == Just item of
+                True ->
+                    [ style "height" "auto", style "display" "inherit" ]
+
+                False ->
+                    [ style "height" "0px", style "display" "none" ]
+    in
     div
-        [ class "notice", class "col-sm-12" ]
+        [ class "notice", class "col-sm-12", onClick (SelectedEducationItem item) ]
         [ div []
             [ h4 [ style "flex" "1", style "color" "#833" ] [ text item.time ]
             , h4 [ style "flex" "4", style "color" "#444" ] [ text item.school ]
             , h4 [ style "flex" "2", style "color" "#444" ] [ text item.degree ]
             , h4 [ style "flex" "1", style "color" "#833" ] [ text item.place ]
             ]
-        , div [ class "education-courses" ] (List.map (\a -> li [] [ text a ]) item.achievements)
+        , div visibility (List.map (\a -> p [] [ text a ]) item.achievements)
         ]
 
 
