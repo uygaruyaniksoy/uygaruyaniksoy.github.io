@@ -38,7 +38,7 @@ initialState : Model
 initialState =
     { selectedEducationItem = Nothing
     , educationItems =
-        [ EducationItem "Middle East Technical University" "Computer Engineering" "2013-2019" "Turkey" [ "did sth" ]
+        [ EducationItem "Middle East Technical University" "Computer Engineering" "2013-2019" "Turkey" [ "did sth", "didthe other thung", "and some other thung", "also that", "and this" ]
         , EducationItem "Regensburg University of Applied Science" "Computer Science" "2017-2017" "Germany" [ "did sth" ]
         ]
     }
@@ -131,10 +131,10 @@ educationItem selectedItem item =
         visibility =
             case selectedItem == Just item of
                 True ->
-                    [ style "height" "auto", style "display" "inherit" ]
+                    [ style "max-height" "1000px", style "opacity" "1" ]
 
                 False ->
-                    [ style "height" "0px", style "display" "none" ]
+                    [ style "max-height" "0px", style "opacity" "0" ]
     in
     div
         [ class "notice", class "col-sm-12", onClick (SelectedEducationItem item) ]

@@ -4965,7 +4965,7 @@ var author$project$Main$initialState = {
 			'2013-2019',
 			'Turkey',
 			_List_fromArray(
-				['did sth'])),
+				['did sth', 'didthe other thung', 'and some other thung', 'also that', 'and this'])),
 			A5(
 			author$project$Main$EducationItem,
 			'Regensburg University of Applied Science',
@@ -5569,14 +5569,14 @@ var author$project$Main$educationItem = F2(
 			if (_n0) {
 				return _List_fromArray(
 					[
-						A2(elm$html$Html$Attributes$style, 'height', 'auto'),
-						A2(elm$html$Html$Attributes$style, 'display', 'inherit')
+						A2(elm$html$Html$Attributes$style, 'max-height', '1000px'),
+						A2(elm$html$Html$Attributes$style, 'opacity', '1')
 					]);
 			} else {
 				return _List_fromArray(
 					[
-						A2(elm$html$Html$Attributes$style, 'height', '0px'),
-						A2(elm$html$Html$Attributes$style, 'display', 'none')
+						A2(elm$html$Html$Attributes$style, 'max-height', '0px'),
+						A2(elm$html$Html$Attributes$style, 'opacity', '0')
 					]);
 			}
 		}();
