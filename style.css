@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #fffafa;
+    background-color: #efeff9;
 }
 
 * {
@@ -48,10 +48,50 @@ header h5 {
 
 .notice {
     padding: 15px;
+    padding-left: 80px;
     background-color: #fafafa;
-    border-left: 6px solid #7f7f84;
+    border-left: 6px solid #03cc85;
     margin-bottom: 10px;
     -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
        -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
             box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+}
+
+.notice-float {
+    padding: 8px;
+    font-size: 14px;
+    width: fit-content;
+    background-color: #03cc85;
+    border-left: 4px solid #03bb7a;
+    color: white;
+    position: absolute;
+    top: 8px;
+    left: -24px;
+    -webkit-box-shadow: 9px 9px 12px -10px rgba(0,0,0,.8);
+       -moz-box-shadow: 9px 9px 12px -10px rgba(0,0,0,.8);
+            box-shadow: 9px 9px 12px -10px rgba(0,0,0,.8);
+}
+
+.notice-float p {
+    margin: 0;
+    padding: 4px;
+}
+
+.notice h4 {
+    color: #444444;
+}
+
+.notice h5 {
+    color: #666666;
+}
+
+.notice img {
+    width: 100px;
+    height: 100px;
+    float: right;
+}
+
+.notice:hover h4 {
+    transition: all 0 ease;
+    transform: translateX(20px);
 }
