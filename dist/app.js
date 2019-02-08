@@ -4974,7 +4974,7 @@ var author$project$Main$initialState = {
 			'Ankara, Turkey',
 			_List_fromArray(
 				['CENG213 - Data Structures', 'CENG242 - Programming Language Concepts', 'CENG315 - Algorithms', 'CENG334 - Operating Systems', 'CENG435 - Data Communications and Networking', 'CENG451 - Information Systems Development', 'CENG453 - Software Construction', 'CENG466 - Fundamentals of Image Processing', 'CENG477 - Computer Graphics', 'CENG495 - Cloud Computing']),
-			'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Logo_ODT%C3%9C.svg/480px-Logo_ODT%C3%9C.svg.png'),
+			'https://seeklogo.net/wp-content/uploads/2013/04/odtu-vector-logo.png'),
 			A6(
 			author$project$Main$EducationItem,
 			'Regensburg University of Applied Science',
@@ -5788,6 +5788,7 @@ var author$project$Main$education = function (model) {
 var author$project$Main$SelectedExperienceItem = function (a) {
 	return {$: 'SelectedExperienceItem', a: a};
 };
+var elm$html$Html$span = _VirtualDom_node('span');
 var author$project$Main$experienceItem = F2(
 	function (selectedItem, item) {
 		var visibility = function () {
@@ -5883,8 +5884,24 @@ var author$project$Main$experienceItem = F2(
 							_List_Nil,
 							_List_fromArray(
 								[
-									elm$html$Html$text(
-									'Technologies: ' + A2(elm$core$String$join, ', ', item.technologies))
+									A2(
+									elm$html$Html$span,
+									_List_fromArray(
+										[
+											A2(elm$html$Html$Attributes$style, 'font-weight', 'bold')
+										]),
+									_List_fromArray(
+										[
+											elm$html$Html$text('Technologies: ')
+										])),
+									A2(
+									elm$html$Html$span,
+									_List_Nil,
+									_List_fromArray(
+										[
+											elm$html$Html$text(
+											A2(elm$core$String$join, ', ', item.technologies))
+										]))
 								]))
 						])),
 					A2(
@@ -6466,7 +6483,6 @@ var elm$browser$Debugger$Overlay$viewMessage = F4(
 						]))
 				]));
 	});
-var elm$html$Html$span = _VirtualDom_node('span');
 var elm$browser$Debugger$Overlay$button = F2(
 	function (msg, label) {
 		return A2(

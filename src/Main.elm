@@ -76,7 +76,7 @@ initialState =
             , "CENG477 - Computer Graphics"
             , "CENG495 - Cloud Computing"
             ]
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Logo_ODT%C3%9C.svg/480px-Logo_ODT%C3%9C.svg.png"
+            "https://seeklogo.net/wp-content/uploads/2013/04/odtu-vector-logo.png"
         , EducationItem "Regensburg University of Applied Science"
             "Computer Science"
             (Time
@@ -289,7 +289,7 @@ experienceItem selectedItem item =
             , h4 [] [ text item.company ]
             , h5 [] [ text item.role ]
             , h5 [] [ text item.place ]
-            , h5 [] [ text ("Technologies: " ++ String.join ", " item.technologies) ]
+            , h5 [] [ span [ style "font-weight" "bold" ] [ text "Technologies: " ], span [] [ text (String.join ", " item.technologies) ] ]
             ]
         , div visibility [ hr [] [] ]
         , div visibility (List.map (\a -> li [ style "color" "#666" ] [ text a ]) item.achievements)
