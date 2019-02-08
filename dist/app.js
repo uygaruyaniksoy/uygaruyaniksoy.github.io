@@ -4990,7 +4990,7 @@ var author$project$Main$initialState = {
 			A7(
 			author$project$Main$ExperienceItem,
 			'Siemens',
-			'Junior Software Developer',
+			'Software Developer',
 			A2(author$project$Main$Time, 'Nov 2018', 'Present'),
 			'Ankara, Turkey',
 			_List_fromArray(
@@ -5012,7 +5012,7 @@ var author$project$Main$initialState = {
 			A7(
 			author$project$Main$ExperienceItem,
 			'Halici Yazilim',
-			'Junior Software Developer',
+			'Software Developer',
 			A2(author$project$Main$Time, 'Oct 2017', 'Jun 2018'),
 			'Ankara, Turkey',
 			_List_fromArray(
@@ -5023,7 +5023,7 @@ var author$project$Main$initialState = {
 			A7(
 			author$project$Main$ExperienceItem,
 			'Kale Yazilim',
-			'Junior Software Developer',
+			'Software Developer',
 			A2(author$project$Main$Time, 'Jun 2016', 'Mar 2017'),
 			'Ankara, Turkey',
 			_List_fromArray(
@@ -5450,7 +5450,9 @@ var author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							selectedEducationItem: elm$core$Maybe$Just(item),
+							selectedEducationItem: _Utils_eq(
+								model.selectedEducationItem,
+								elm$core$Maybe$Just(item)) ? elm$core$Maybe$Nothing : elm$core$Maybe$Just(item),
 							selectedExperienceItem: elm$core$Maybe$Nothing
 						}),
 					elm$core$Platform$Cmd$none);
@@ -5461,7 +5463,9 @@ var author$project$Main$update = F2(
 						model,
 						{
 							selectedEducationItem: elm$core$Maybe$Nothing,
-							selectedExperienceItem: elm$core$Maybe$Just(item)
+							selectedExperienceItem: _Utils_eq(
+								model.selectedExperienceItem,
+								elm$core$Maybe$Just(item)) ? elm$core$Maybe$Nothing : elm$core$Maybe$Just(item)
 						}),
 					elm$core$Platform$Cmd$none);
 		}

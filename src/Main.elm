@@ -94,7 +94,7 @@ initialState =
     , selectedExperienceItem = Nothing
     , experienceItems =
         [ ExperienceItem "Siemens"
-            "Junior Software Developer"
+            "Software Developer"
             (Time "Nov 2018" "Present")
             "Ankara, Turkey"
             [ "Implemented a hierarchical diagram for displaying various types of components using GoJS and Angular"
@@ -111,7 +111,7 @@ initialState =
             [ "A-Frame", "ARJS", "Unity", "Blender", "Vuforia" ]
             "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/UCD_Dublin.png/200px-UCD_Dublin.png"
         , ExperienceItem "Halici Yazilim"
-            "Junior Software Developer"
+            "Software Developer"
             (Time "Oct 2017" "Jun 2018")
             "Ankara, Turkey"
             [ "Developed a web application for Brainquire users where they can see statistics on themselves or others."
@@ -121,7 +121,7 @@ initialState =
             [ "React", "React Native", "Redux", "Ruby on Rails", "ExpressJS", "D3JS", "PostgreSQL" ]
             "https://media.licdn.com/dms/image/C4E0BAQENcpJth4ed1A/company-logo_200_200/0?e=2159024400&v=beta&t=VGDF4ozO3KjgnSdTMI5T8PqfORiDXrnH0TS4ya1YYq0"
         , ExperienceItem "Kale Yazilim"
-            "Junior Software Developer"
+            "Software Developer"
             (Time "Jun 2016" "Mar 2017")
             "Ankara, Turkey"
             [ "Implemented a multifunctional interface that will show the user data from a Neo4J database in a way that is easier to understand from a human’s perspective."
@@ -147,7 +147,12 @@ update msg model =
 
         SelectedEducationItem item ->
             ( { model
-                | selectedEducationItem = Just item
+                | selectedEducationItem =
+                    if model.selectedEducationItem == Just item then
+                        Nothing
+
+                    else
+                        Just item
                 , selectedExperienceItem = Nothing
               }
             , Cmd.none
@@ -155,7 +160,12 @@ update msg model =
 
         SelectedExperienceItem item ->
             ( { model
-                | selectedExperienceItem = Just item
+                | selectedExperienceItem =
+                    if model.selectedExperienceItem == Just item then
+                        Nothing
+
+                    else
+                        Just item
                 , selectedEducationItem = Nothing
               }
             , Cmd.none
