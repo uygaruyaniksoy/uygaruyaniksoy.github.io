@@ -15,6 +15,21 @@ type alias Model =
     , selectedEducationItem : Maybe EducationItem
     , experienceItems : List ExperienceItem
     , selectedExperienceItem : Maybe ExperienceItem
+    , projects : List Project
+    , selectedProject : Maybe Project
+    , bioText : List StyledString
+    }
+
+
+type Style
+    = Bold
+    | Normal
+    | Paragraph
+
+
+type alias StyledString =
+    { style : Style
+    , string : String
     }
 
 
@@ -46,6 +61,16 @@ type alias ExperienceItem =
     , achievements : List String
     , technologies : List String
     , img : String
+    }
+
+
+type alias Project =
+    { name : String
+    , what : String
+    , description : String
+    , img : String
+    , technologies : List String
+    , features : List String
     }
 
 
@@ -110,7 +135,7 @@ initialState =
             ]
             [ "A-Frame", "ARJS", "Unity", "Blender", "Vuforia" ]
             "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/UCD_Dublin.png/200px-UCD_Dublin.png"
-        , ExperienceItem "Halici Yazilim"
+        , ExperienceItem "Halici Software"
             "Software Developer"
             (Time "Oct 2017" "Jun 2018")
             "Ankara, Turkey"
@@ -120,7 +145,7 @@ initialState =
             ]
             [ "React", "React Native", "Redux", "Ruby on Rails", "ExpressJS", "D3JS", "PostgreSQL" ]
             "https://media.licdn.com/dms/image/C4E0BAQENcpJth4ed1A/company-logo_200_200/0?e=2159024400&v=beta&t=VGDF4ozO3KjgnSdTMI5T8PqfORiDXrnH0TS4ya1YYq0"
-        , ExperienceItem "Kale Yazilim"
+        , ExperienceItem "Kale Software"
             "Software Developer"
             (Time "Jun 2016" "Mar 2017")
             "Ankara, Turkey"
@@ -132,6 +157,36 @@ initialState =
             [ "React", "Redux", "ExpressJS", "Neo4J", "D3JS" ]
             "https://pbs.twimg.com/profile_images/1082916350639722498/_YHKu7st_400x400.jpg"
         ]
+    , bioText =
+        [ { style = Paragraph, string = "" }
+        , { style = Normal, string = "Hey! My name is Uygar and I am currently a " }
+        , { style = Bold, string = "senior year Computer Engineering" }
+        , { style = Normal, string = " student at Middle East Technical University. I have " }
+        , { style = Bold, string = "over 3 years" }
+        , { style = Normal, string = " of experience as a working student Software Developer for various companies. I am a " }
+        , { style = Bold, string = "proficient Full Stack Developer" }
+        , { style = Normal, string = " and I have been a part of development teams facing difficult engineering problems. I love challanges, building things and learning." }
+        , { style = Paragraph, string = "" }
+        , { style = Normal, string = "Over this 3 years I developed various web applications using " }
+        , { style = Bold, string = "React, Angular, Redux, Express, D3 and GoJS." }
+        , { style = Normal, string = " Also, I am an " }
+        , { style = Bold, string = "indie game developer" }
+        , { style = Normal, string = " and I have published " }
+        , { style = Bold, string = "3 Android games" }
+        , { style = Normal, string = " on Google Play with over " }
+        , { style = Bold, string = " 5000 downloads in total over the years." }
+        , { style = Paragraph, string = "" }
+        , { style = Normal, string = "Currently I am working for Siemens as a Frontend Developer in Ankara since November 2018 but I always have side projects going on and more planned in mind for the future. " }
+        ]
+    , projects =
+        [ Project "Eu4 Quiz"
+            "Android Game"
+            "some desc"
+            "https://lh3.googleusercontent.com/dp3IQptNaPV8G4KQE0vYX3vH1mKvbONysFCKd2AyZYu7rMDNrIwd6229XQTXXyrhdvW1=s180-rw"
+            [ "android", "java" ]
+            [ "some cool feature", "other good feature" ]
+        ]
+    , selectedProject = Nothing
     }
 
 
@@ -175,22 +230,26 @@ update msg model =
 view : Model -> Html Msg
 view model =
     Html.div
-        [ class "col-sm-8"
-        , class "col-sm-offset-2"
+        [ class "col-lg-8"
+        , class "col-lg-offset-2"
         ]
         [ siteHeader
-        , bio
-        , education model
-        , experience model
-        , projects
-        , skills
-        , siteFooter
+        , bio model
+        , div [ class "row", class "col-lg-12" ]
+            [ education model
+            , experience model
+            ]
+
+        --        , projects model
+        --        , skills
+        --        , siteFooter
         ]
 
 
 siteHeader =
     header
         [ class "header"
+        , class "col-lg-6"
         , class "col-md-5"
         , class "col-sm-12"
         ]
@@ -210,23 +269,28 @@ siteHeader =
         ]
 
 
-bio =
+bio model =
     div
         [ class "bio"
         , class "section-header"
+        , class "col-lg-6"
         , class "col-md-7"
         , class "col-sm-12"
         ]
         [ h1 [] [ text "bio" ]
-        , p []
-            [ text "llorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit" ]
-        , p []
-            [ text "amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor\n        sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet orem ipsum dolor sit amet "
-            ]
-        , p []
-            [ text "amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor\n        sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet orem ipsum dolor sit amet "
-            ]
+        , div [] (List.map bioItem model.bioText)
         ]
+
+
+bioItem bioText =
+    if bioText.style == Bold then
+        strong [] [ text bioText.string ]
+
+    else if bioText.style == Normal then
+        span [] [ text bioText.string ]
+
+    else
+        p [] []
 
 
 education model =
@@ -251,7 +315,15 @@ educationItem selectedItem item =
                     [ style "max-height" "0px", style "opacity" "0" ]
     in
     div
-        [ class "notice", class "col-sm-12", onClick (SelectedEducationItem item) ]
+        [ class "notice"
+        , if item.school == "Middle East Technical University" then
+            class "wiggle"
+
+          else
+            class ""
+        , class "col-sm-12"
+        , onClick (SelectedEducationItem item)
+        ]
         [ div []
             [ div [ class "notice notice-float" ]
                 [ p [ style "border-bottom" "#ccc solid 1px" ] [ text item.time.to ]
@@ -261,6 +333,7 @@ educationItem selectedItem item =
             , h4 [] [ text item.school ]
             , h5 [] [ text item.degree ]
             , h5 [] [ text item.place ]
+            , h5 [ style "padding" "7.5px" ] []
             ]
         , div visibility [ hr [] [] ]
         , div visibility (List.map (\a -> li [ style "color" "#666" ] [ text a ]) item.achievements)
@@ -306,11 +379,31 @@ experienceItem selectedItem item =
         ]
 
 
-projects =
+projects model =
     div
-        [ class "col-md-12" ]
+        [ class "section-header"
+        , class "col-md-6"
+        , class "col-sm-12"
+        ]
         [ h1 [] [ text "projects" ]
-        , br [] []
+        , div [] (List.map (projectItem model.selectedProject) model.projects)
+        ]
+
+
+projectItem selectedItem item =
+    let
+        visibility =
+            []
+    in
+    div
+        [ class "notice", class "col-sm-12" ]
+        [ img [ src item.img ] []
+        , h4 [] [ text item.name ]
+        , h5 [] [ text item.what ]
+        , h5 [] [ text item.description ]
+        , h5 [] [ span [ style "font-weight" "bold" ] [ text "Technologies: " ], span [] [ text (String.join ", " item.technologies) ] ]
+        , div visibility [ hr [] [] ]
+        , div visibility (List.map (\a -> li [ style "color" "#666" ] [ text a ]) item.features)
         ]
 
 
